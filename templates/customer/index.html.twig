@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block title %}Kundenliste{% endblock %}
+{% block body %}
+    {{ parent() }}
+
+    <div class="container mt-5 mb-2">
+        <a href="{{ path('app_admin') }}">Gehen Sie zum Redakteur-Panel</a>
+    </div>
+    <div class="container mb-4">
+        <a href="{{ path('create_customer') }}">Neu Kunde registerieren</a>
+    </div>
+    <div class="container mt-5">
+        {% if customers|length is same as(0) %}
+            <div class="card text-center">
+                <div class="card-header bg-danger text-white">
+                    <h4>Es gibt keine Kunden</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Sie können zum Redakteur-Panel gehen, um Kunden zu verwalten und zu registrieren.</p>
+                    <a href="{{ path('app_admin') }}" class="btn btn-primary">Gehen Sie zum Redakteur-Panel</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="table-responsive px-3">
+                                            <table class="table table-striped align-middle table-nowrap">
+                                                <tbody>
+                                                {% for customer in customers %}
+                                                    <tr>
+                                                        <td>
+                                                            {% if customer.logoName %}
+                                                                <img class="img-fluid" width="100" height="100"
+                                                                     src="{{ asset('uploads/logos/' ~ customer.logoName) }}"/>
+                                                            {% endif %}
+                                                        </td>
+
+                                                        <td>
+                                                            {% if customer.firstname %}
+                                                                {{ customer.firstname }}
+                                                            {% endif %}
+                                                        </td>
+
+                                                        <td>
+                                                            {% if customer.lastName %}
+                                                                {{ customer.lastName }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            {% if customer.status %}
+                                                                {{ customer.status }}
+                                                            {% endif %}
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="{{ path('edit_customer',{'id':customer.id}) }}"
+                                                               class="btn btn-primary">edit</a>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="{{ path('delete_customer',{'id':customer.id}) }}"
+                                                               class="btn btn-danger">delete</a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

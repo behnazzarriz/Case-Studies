@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kunde bearbeiten{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container mt-5 mb-2">
+        <a href="{{ path('app_admin') }}">Gehen Sie zum Redakteur-Panel</a>
+    </div>
+    <div class="container mb-4">
+        <a href="{{ path('list_customer') }}">Gehen Sie zur Kundenliste</a>
+    </div>
+    <div class="container">
+        <h1 class="text-center">Kunde bearbeiten</h1>
+        <div class="bg-light mt-4 p-4">
+
+            {{ form_errors(createCustomerForm) }}
+            {{ form_start(createCustomerForm) }}
+
+            <div class="form-group">
+
+                <div class="form-group">
+
+                    {{ form_label(createCustomerForm.logoFile, 'Logo', {'attr': {'for': 'customerLogo'}}) }}
+                    {{ form_widget(createCustomerForm.logoFile, {'attr': {'class': 'form-control', 'id': 'customerLogo'}}) }}
+
+                </div>
+
+            </div>
+            <div class="form-group">
+                {{ form_label(createCustomerForm.firstname, 'Firstname', {'attr': {'for': 'customerFirstname'}}) }}
+                {{ form_widget(createCustomerForm.firstname, {'attr': {'class': 'form-control', 'id': 'customerFirstname'}}) }}
+
+            </div>
+            <div class="form-group">
+                {{ form_label(createCustomerForm.lastname, 'Lastname', {'attr': {'for': 'customerLastname'}}) }}
+                {{ form_widget(createCustomerForm.lastname, {'attr': {'class': 'form-control', 'id': 'customerLastname'}}) }}
+            </div>
+            <div class="form-check">
+                {{ form_label(createCustomerForm.status, 'Status', {'attr': {'for': 'customerStatus','class': 'form-check-label'}}) }}
+                {{ form_widget(createCustomerForm.status, {'attr': {'class': 'form-check-input', 'id': 'customerStatus'}}) }}
+            </div>
+
+
+
+            <div class="mt-5" id="exp_list" data-prototype="{{ form_widget(createCustomerForm.caseStudies.vars.prototype)|e('html_attr') }}">
+                <h3 class="text-center mt-3 mb-3">Bearbeitung und Hinzufügung von Informationen zum Case Study</h3>
+                {% for row in createCustomerForm.caseStudies %}
+
+
+                    <div class="panel panel-warning">
+                        {% set deleteUrl = path('delete_caseStudy', {'id': row.vars.value.id}) %}
+                        <input class="deleteUrl" type="hidden" data-delete-url="{{ deleteUrl }}">
+                        <div class="panel-heading">
+                            <strong>{{ row.vars.value.title }}</strong>
+                        </div>
+                        <div class="panel-body">
+                            {{ form_row(row) }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="text-right mt-5">
+                <button type="submit" class="btn btn-success btn-block">Bearbeiten</button>
+            </div>
+
+            {{ form_end(createCustomerForm) }}
+        </div>
+
+
+    </div>
+
+{% endblock %}

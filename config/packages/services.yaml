@@ -1,0 +1,2 @@
+#parameters:
+  #logos_directory: '%kernel.project_dir%/public/uploads/logos'

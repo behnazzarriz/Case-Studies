@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Redakteur Panel{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="mb-0">Redakteur Panel</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <a class="btn btn-danger btn-block" href="{{ path('app_logout') }}">Ausloggen</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-success btn-block" href="{{ path('app_register') }}">Redakteur registrieren</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-info btn-block" href="{{ path('create_customer') }}">Kunde registrieren</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-info btn-block" href="{{ path('list_customer') }}">Kundenliste</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
